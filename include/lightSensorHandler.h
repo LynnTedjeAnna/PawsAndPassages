@@ -6,9 +6,13 @@
 
 class LightsensorHandler{
 public:
-    LightsensorHandler();
-    void
+    LightsensorHandler(int l_sensor, MessageHandler messageHandler);
+    void setupLightsensor();
+    void readLightsensorValues();
 
+private:
+    int L_Sensor;
+    MessageHandler lightSensorMessageHandler;
 };
 
 #endif

@@ -12,8 +12,8 @@ void MessageHandler::sendMessage(String message) {
 
 String MessageHandler::receiveMessage() {
     if (Serial.available()) {
-        Serial.readStringUntil('#');
-        return Serial.readStringUntil('%');
+        Serial.readStringUntil(Start);
+        return Serial.readStringUntil(Stop);
     }
     //have to return string, even when returning nothing
     return "";

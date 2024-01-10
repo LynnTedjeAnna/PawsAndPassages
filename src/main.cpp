@@ -3,8 +3,8 @@
 #include "joystickHandler.h"
 #include "dimHandler.h"
 #include "messageHandler.h"
+#include "lightSensorHandler.h"
 
-// Define pin constants
 #define A 2
 #define B 3
 #define C 4
@@ -25,6 +25,7 @@ MessageHandler messageHandler('#', '%');
 ButtonHandler buttonHandler(buttons, messageHandler);
 JoystickHandler joystickHandler(Joy_X, Joy_Y, messageHandler);
 DimHandler vibrator(Vib, "T");
+LightsensorHandler lightsensorHandler (L_Sensor, messageHandler);
 
 void setup() {
 	Serial.begin(9600);
@@ -40,6 +41,7 @@ void setup() {
 	buttonHandler.setupButtons();
 	joystickHandler.setupJoystick();
 	vibrator.setupPin();
+    lightsensorHandler.setupLightsensor();
 }
 
 void loop() {
@@ -57,14 +59,6 @@ void loop() {
     }
     vibrator.update();
 
-    Serial.println(analogRead(L_Sensor));
+    //Read Lightsensor values
+    lightsensorHandler.readLightsensorValues();
 }
-
-//extras treugsturen, vier ledjes of meer
-
-//licht sersor,
-// actuatoren servo of ledje laten pulsen (moet er echt bij)
-//actuatoren!!
-//paramaters
-//led aan kies je welke het is met cijfer. vanaf applicatie.
-//trill vibrator toevoegen kan in arduino/joystick
