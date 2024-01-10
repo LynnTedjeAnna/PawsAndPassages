@@ -5,11 +5,14 @@
 
 class MessageHandler
 {
-    Public:
-        /* data */
-    private:
-        /* data */
-    ;
-};
+    public:
+    MessageHandler(char start = '#', char stop = '%');
 
+    void sendMessage(String message);
+    String receiveMessage();
+
+    private:
+    char Start;
+    char Stop;
+};
 #endif

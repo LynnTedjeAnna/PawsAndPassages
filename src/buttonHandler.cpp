@@ -1,6 +1,7 @@
 #include "buttonHandler.h"
 
-ButtonHandler::ButtonHandler(int buttonPins[]) {
+ButtonHandler::ButtonHandler(int buttonPins[], MessageHandler messageHandler) {
+    buttonMessageHandler = messageHandler;
 	for (int i = 0; i < BUTTON_COUNT; i++) {
 		buttons[i] = buttonPins[i];
 	}
@@ -17,8 +18,7 @@ void ButtonHandler::checkButtonPress() {
 	for (int i = 0; i < BUTTON_COUNT; i++) {
 
 		if (digitalRead(buttons[i]) == LOW && !buttonPressed[i]) {
-			String message = "#" + String(i) + "%";
-			Serial.println(message);
+            buttonMessageHandler.sendMessage(String(i));
 			buttonPressed[i] = true;
 			delay(10);
 		} else if (digitalRead(buttons[i]) == HIGH) {

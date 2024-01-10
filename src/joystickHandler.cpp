@@ -1,9 +1,10 @@
 #include "joystickHandler.h"
 
-JoystickHandler::JoystickHandler(int joy_x, int joy_y) {
+JoystickHandler::JoystickHandler(int joy_x, int joy_y, MessageHandler messageHandler) {
     Joy_X = joy_x;
     Joy_Y = joy_y;
     joyThreshold = 100;
+    joystickMessageHandler = messageHandler;
 }
 
 void JoystickHandler::setupJoystick() {
@@ -15,23 +16,15 @@ void JoystickHandler::readJoystickValues() {
     int joyX = analogRead(Joy_X) - 345;
     int joyY = analogRead(Joy_Y) - 327;
 
-    String message = "";
     if (joyX > joyThreshold) {
-        message = "#R%";
+        joystickMessageHandler.sendMessage("R");
     } else if (joyX < -joyThreshold) {
-        message = "#L%";
-    }
-    if (message.length()) {
-        Serial.println(message);
-        message = "";
+        joystickMessageHandler.sendMessage("L");
     }
 
     if (joyY > joyThreshold) {
-        message = "#U%";
+        joystickMessageHandler.sendMessage("U");
     } else if (joyY < -joyThreshold) {
-        message = "#D%";
-    }
-    if (message.length()) {
-        Serial.println(message);
+        joystickMessageHandler.sendMessage("D");
     }
 }
