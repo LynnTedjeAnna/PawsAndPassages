@@ -11,6 +11,6 @@ void LightsensorHandler::setupLightsensor() {
 
 void LightsensorHandler::readLightsensorValues() {
     int l_sensor = analogRead(L_Sensor);
-    l_sensor = map( 5, 700, 0, 100, l_sensor);
+    l_sensor = map(l_sensor, 12, 1000, 0, 100);
     lightSensorMessageHandler.sendMessage("LS:" + String(l_sensor));
 }
