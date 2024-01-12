@@ -16,6 +16,8 @@
 #define Joy_X A0
 #define Joy_Y A1
 #define L_Sensor A2
+#define LED_Yellow A3
+#define LED_White A5
 
 // Arrays for button and joystick pins
 int buttons[] = {A, B, C, D, E, F, Joy_BT};
@@ -25,6 +27,8 @@ MessageHandler messageHandler('#', '%');
 ButtonHandler buttonHandler(buttons, messageHandler);
 JoystickHandler joystickHandler(Joy_X, Joy_Y, messageHandler);
 DimHandler vibrator(Vib, "T");
+DimHandler yellow(LED_Yellow, "Y");
+DimHandler white(LED_White, "W");
 LightsensorHandler lightsensorHandler (L_Sensor, messageHandler);
 
 void setup() {
@@ -32,8 +36,10 @@ void setup() {
 
     pinMode(12, OUTPUT);
     pinMode(13, OUTPUT);
+    pinMode(A4, OUTPUT);
     digitalWrite(12, HIGH);
     digitalWrite(13, LOW);
+    digitalWrite(A4, LOW);
 
     pinMode(L_Sensor, INPUT);
 
@@ -54,10 +60,18 @@ void loop() {
 	joystickHandler.readJoystickValues();
 
 	// Write console output
-    if (vibrator.getKey() == message) {
-        vibrator.turnOn();
-    }
-    vibrator.update();
+	if (vibrator.getKey() == message) {
+		vibrator.turnOn();
+	}
+	if (yellow.getKey() == message) {
+		yellow.turnOn();
+	}
+	if (white.getKey() == message) {
+		white.turnOn();
+	}
+	vibrator.update();
+	yellow.update();
+	white.update();
 
     //Read Lightsensor values
     lightsensorHandler.readLightsensorValues();
