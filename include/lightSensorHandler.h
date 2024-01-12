@@ -12,6 +12,8 @@ public:
 
 private:
     int L_Sensor;
+    int Low;
+    int Mid;
     MessageHandler lightSensorMessageHandler;
 };
 

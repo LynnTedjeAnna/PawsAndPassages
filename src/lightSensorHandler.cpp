@@ -1,7 +1,9 @@
 #include "lightSensorHandler.h"
 
-LightsensorHandler::LightsensorHandler(int l_sensor, MessageHandler messageHandler) {
+LightsensorHandler::LightsensorHandler(int l_sensor,  MessageHandler messageHandler) {
     L_Sensor = l_sensor;
+    Low = 7;
+    Mid = 70;
     lightSensorMessageHandler = messageHandler;
 }
 
@@ -12,5 +14,15 @@ void LightsensorHandler::setupLightsensor() {
 void LightsensorHandler::readLightsensorValues() {
     int l_sensor = analogRead(L_Sensor);
     l_sensor = map(l_sensor, 12, 1000, 0, 100);
-    lightSensorMessageHandler.sendMessage("LS:" + String(l_sensor));
+    //lightSensorMessageHandler.sendMessage("LS:" + String(l_sensor));
+
+    if (l_sensor <= Low) {
+        lightSensorMessageHandler.sendMessage("L");
+    }
+    else if (l_sensor > Low && l_sensor < Mid) {
+        lightSensorMessageHandler.sendMessage("M");
+    }
+    else if (l_sensor >= Mid) {
+        lightSensorMessageHandler.sendMessage("H");
+    }
 }
