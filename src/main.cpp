@@ -74,5 +74,8 @@ void loop() {
 	white.update();
 
     //Read Lightsensor values
-    lightsensorHandler.readLightsensorValues();
+    //lightsensorHandler.readLightsensorValues();
+
+	// due to timing issues delay is added to allow vibrator to work
+	delayMicroseconds(10);
 }

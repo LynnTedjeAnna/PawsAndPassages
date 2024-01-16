@@ -5,7 +5,7 @@
 
 class DimHandler {
     public:
-    DimHandler(int pin, String key, int delay = 5000);
+    DimHandler(int pin, String key, int delay = 3000);
 
     void setupPin();
     String getKey();
