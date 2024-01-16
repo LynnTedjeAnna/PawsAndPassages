@@ -63,11 +63,15 @@ void loop() {
 	if (vibrator.getKey() == message) {
 		vibrator.turnOn();
 	}
-	if (yellow.getKey() == message) {
+	else if (yellow.getKey() == message) {
 		yellow.turnOn();
 	}
-	if (white.getKey() == message) {
+	else if (white.getKey() == message) {
 		white.turnOn();
+	}
+	else {
+		// send error message
+		messageHandler.sendMessage("E");
 	}
 	vibrator.update();
 	yellow.update();

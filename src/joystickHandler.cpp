@@ -16,15 +16,24 @@ void JoystickHandler::readJoystickValues() {
     int joyX = analogRead(Joy_X) - 345;
     int joyY = analogRead(Joy_Y) - 327;
 
+    String message = "";
     if (joyX > joyThreshold) {
-        joystickMessageHandler.sendMessage("R");
+        message = "R";
     } else if (joyX < -joyThreshold) {
-        joystickMessageHandler.sendMessage("L");
+        message = "L";
+    }
+    if (message.length()) {
+        joystickMessageHandler.sendMessage(message);
+        message = "";
     }
 
     if (joyY > joyThreshold) {
-        joystickMessageHandler.sendMessage("U");
+        message = "U";
     } else if (joyY < -joyThreshold) {
-        joystickMessageHandler.sendMessage("D");
+        message = "D";
+    }
+    if (message.length()) {
+        joystickMessageHandler.sendMessage(message);
+        message = "";
     }
 }
