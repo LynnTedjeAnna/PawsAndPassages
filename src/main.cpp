@@ -5,6 +5,7 @@
 #include "messageHandler.h"
 #include "lightSensorHandler.h"
 
+
 #define A 2
 #define B 3
 #define C 4
@@ -57,7 +58,31 @@ void loop() {
 	buttonHandler.checkButtonPress();
 
 	// Read joystick values
-	joystickHandler.readJoystickValues();
+	//joystickHandler.readJoystickValues();
+
+	//get position joystick values
+	joystickHandler.getJoyPosition();
+
+	JoyResult result = joystickHandler.getJoyPosition();
+	String messageToSend = "";
+	if (result == Left) {
+		messageToSend = "L";
+	} else if (result == Right) {
+		messageToSend = "R";
+	}
+	if (messageToSend != "") {
+		messageHandler.sendMessage(messageToSend);
+		messageToSend = "";
+	}
+	messageToSend = "";
+	if (result == Up) {
+		messageToSend = "U";
+	} else if (result == Down) {
+		messageToSend = "D";
+	}
+	if (messageToSend != "") {
+		messageHandler.sendMessage(messageToSend);
+	}
 
 	// Write console output
 	if (vibrator.getKey() == message) {

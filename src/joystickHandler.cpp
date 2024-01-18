@@ -12,28 +12,23 @@ void JoystickHandler::setupJoystick() {
     pinMode(Joy_Y, INPUT);
 }
 
-void JoystickHandler::readJoystickValues() {
+JoyResult JoystickHandler::getJoyPosition() {
     int joyX = analogRead(Joy_X) - 345;
     int joyY = analogRead(Joy_Y) - 327;
 
-    String message = "";
-    if (joyX > joyThreshold) {
-        message = "R";
-    } else if (joyX < -joyThreshold) {
-        message = "L";
+    if (joyX < -joyThreshold) { // user pushes left
+        return Left;
     }
-    if (message.length()) {
-        joystickMessageHandler.sendMessage(message);
-        message = "";
+    if (joyX > joyThreshold) { // user pushes right
+        return Right;
+    }
+    if (joyY > joyThreshold) { // user pushes up
+        return Up;
+    }
+    if (joyY < -joyThreshold) { // user pushes down
+        return Down;
     }
 
-    if (joyY > joyThreshold) {
-        message = "U";
-    } else if (joyY < -joyThreshold) {
-        message = "D";
-    }
-    if (message.length()) {
-        joystickMessageHandler.sendMessage(message);
-        message = "";
-    }
+    // If no condition is met, a default value is returned
+    return Neutral;
 }
