@@ -94,7 +94,7 @@ void loop() {
 	else if (white.getKey() == message) {
 		white.turnOn();
 	}
-	else {
+	else if (message != "") {
 		// send error message
 		messageHandler.sendMessage("E");
 	}
