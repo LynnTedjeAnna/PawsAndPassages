@@ -11,7 +11,7 @@ class MessageHandler
     void sendMessage(String message);
     String receiveMessage();
 
-    private:
+private:
     char Start;
     char Stop;
 };

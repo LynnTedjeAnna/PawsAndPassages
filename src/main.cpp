@@ -5,7 +5,6 @@
 #include "messageHandler.h"
 #include "lightSensorHandler.h"
 
-
 #define A 2
 #define B 3
 #define C 4
