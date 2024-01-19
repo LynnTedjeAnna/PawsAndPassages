@@ -30,6 +30,9 @@ DimHandler vibrator(Vib, "T");
 DimHandler yellow(LED_Yellow, "Y");
 DimHandler white(LED_White, "W");
 LightsensorHandler lightsensorHandler (L_Sensor, messageHandler);
+unsigned long start = 0;
+const unsigned long timeout = 100;
+
 
 void setup() {
 	Serial.begin(9600);
@@ -62,6 +65,8 @@ void loop() {
 	//get position joystick values
 	joystickHandler.getJoyPosition();
 
+	bool timedout = millis() - start > timeout;
+
 	JoyResult result = joystickHandler.getJoyPosition();
 	String messageToSend = "";
 	if (result == Left) {
@@ -69,9 +74,10 @@ void loop() {
 	} else if (result == Right) {
 		messageToSend = "R";
 	}
-	if (messageToSend != "") {
+	if (messageToSend != "" && timedout) {
 		messageHandler.sendMessage(messageToSend);
 		messageToSend = "";
+		start = millis();
 	}
 	messageToSend = "";
 	if (result == Up) {
@@ -79,8 +85,9 @@ void loop() {
 	} else if (result == Down) {
 		messageToSend = "D";
 	}
-	if (messageToSend != "") {
+	if (messageToSend != "" && timedout) {
 		messageHandler.sendMessage(messageToSend);
+		start = millis();
 	}
 
 	// Write console output
